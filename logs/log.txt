@@ -1,0 +1,14 @@
+
+LOG_INIT<10/28/2020 9:08:10 PM
+dec.Schedule.Get(title).Date.ToString() : 10/31/2020 12:00:00 AM
+LOG_TERM<10/28/2020 9:08:10 PM
+
+LOG_INIT<10/28/2020 9:09:23 PM
+dec.Schedule.Get(title).Date.ToString() : 10/31/2020 12:00:00 AM
+LOG_TERM<10/28/2020 9:09:23 PM
+
+LOG_INIT<10/28/2020 9:09:32 PM
+dec.Schedule.Get(title).Date.ToString() : 10/31/2020 12:00:00 AM
+LOG_TERM<10/28/2020 9:09:32 PM
+
+//That was a test to see whether the newline thing was working.

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace DBoard
 {
@@ -109,6 +110,8 @@ namespace DBoard
         }
         public static void Main(string[] args)
         {
+            Logger logger = new Logger();
+
             string title = args[0];
             string date = args[1];
             string subtitle = args[2];
@@ -126,17 +129,31 @@ namespace DBoard
 
             DecBoard dec = new DecBoard();
             dec.AddEvent(title, subtitle, date, notes.ToString());
-            Console.WriteLine(dec.Schedule.Get(title).Date.ToString());
+
+            logger.Record($"dec.Schedule.Get(title).Date.ToString() : {dec.Schedule.Get(title).Date.ToString()}");
+
+            logger.Close();
         }
     }
     class Logger
     {
-        System.IO.BinaryWriter FileWriter;
+        StreamWriter logfile_StreamWriter;
         public Logger()
         {
             System.IO.Directory.CreateDirectory("./logs");
-            System.IO.File.Create("./log.txt");
-            
+            logfile_StreamWriter = new StreamWriter("./logs/log.txt", true);
+            logfile_StreamWriter.Write($"\nLOG_INIT<{System.DateTime.Now}\n");
+            logfile_StreamWriter.Flush();
+        }
+
+        public void Record(string literal){
+            logfile_StreamWriter.Write(literal);
+        }
+
+        public void Close(){
+            logfile_StreamWriter.Write($"\nLOG_TERM<{System.DateTime.Now}\n");
+            logfile_StreamWriter.Flush();
+            logfile_StreamWriter.Close();
         }
     }
 }
