@@ -12,3 +12,200 @@ dec.Schedule.Get(title).Date.ToString() : 10/31/2020 12:00:00 AM
 LOG_TERM<10/28/2020 9:09:32 PM
 
 //That was a test to see whether the newline thing was working.
+LOG_INIT<10/29/2020 10:51:30 PM
+
+LOG_INIT<10/29/2020 10:52:02 PM
+dec.Schedule.Get(title).Date.ToString() : 10/28/2020 12:00:00 AM
+LOG_TERM<10/29/2020 10:52:02 PM
+
+LOG_INIT<10/29/2020 10:53:01 PM
+dec.Schedule.Get(title).ToString() : Subtitle 10/28/2020 12:00:00 AM [<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄]
+LOG_TERM<10/29/2020 10:53:01 PM
+
+//indicates that nothing was stored.
+LOG_INIT<10/31/2020 12:28:18 AM
+dec.Schedule.Get(title).ToString() : Subtitle 10/28/2020 12:00:00 AM [<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄]
+LOG_TERM<10/31/2020 12:28:18 AM
+
+LOG_INIT<10/31/2020 12:34:51 AM
+dec.Schedule.Get(title).ToString() : Subtitle 10/28/2020 12:00:00 AM [<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄‣[<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄]‣⁄]
+LOG_TERM<10/31/2020 12:34:51 AM
+
+LOG_INIT<10/31/2020 12:35:25 AM
+dec.Schedule.Get(title).ToString() : Subtitle 10/28/2020 12:00:00 AM [<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄]
+LOG_TERM<10/31/2020 12:35:25 AM
+
+LOG_INIT<10/31/2020 12:35:45 AM
+dec.Schedule.Get(title).ToString() : Subtitle 10/28/2020 12:00:00 AM [<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄‣[<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄]‣⁄]
+LOG_TERM<10/31/2020 12:35:45 AM
+
+LOG_INIT<10/31/2020 12:36:22 AM
+dec.Schedule.Get(title).ToString() : Subtitle 10/28/2020 12:00:00 AM [<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄‣[<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄]‣⁄]
+LOG_TERM<10/31/2020 12:36:22 AM
+
+LOG_INIT<10/31/2020 12:36:34 AM
+dec.Schedule.Get(title).ToString() : Subtitle 10/28/2020 12:00:00 AM [<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄‣[<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄]‣⁄]
+LOG_TERM<10/31/2020 12:36:34 AM
+
+LOG_INIT<10/31/2020 12:36:46 AM
+dec.Schedule.Get(title).ToString() : Subtitle 10/28/2020 12:00:00 AM [<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄‣[<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄]‣⁄]
+LOG_TERM<10/31/2020 12:36:46 AM
+
+LOG_INIT<10/31/2020 12:37:03 AM
+dec.Schedule.Get(title).ToString() : Subtitle 10/28/2020 12:00:00 AM [<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄‣[<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄]‣⁄]
+LOG_TERM<10/31/2020 12:37:03 AM
+
+LOG_INIT<10/31/2020 12:37:21 AM
+dec.Schedule.Get(title).ToString() : Subtitle 10/28/2020 12:00:00 AM [<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄‣[<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄]‣⁄]
+LOG_TERM<10/31/2020 12:37:21 AM
+
+LOG_INIT<10/31/2020 12:37:42 AM
+dec.Schedule.Get(title).ToString() : Subtitle 10/28/2020 12:00:00 AM [<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄‣[<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄]‣⁄]
+LOG_TERM<10/31/2020 12:37:42 AM
+
+LOG_INIT<10/31/2020 12:37:50 AM
+dec.Schedule.Get(title).ToString() : Subtitle 10/28/2020 12:00:00 AM [<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄‣[<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄]‣⁄]
+LOG_TERM<10/31/2020 12:37:50 AM
+
+LOG_INIT<10/31/2020 12:37:57 AM
+dec.Schedule.Get(title).ToString() : Subtitle 10/28/2020 12:00:00 AM [<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄‣[<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄]‣⁄]
+LOG_TERM<10/31/2020 12:37:57 AM
+
+LOG_INIT<10/31/2020 12:38:05 AM
+dec.Schedule.Get(title).ToString() : Subtitle 10/28/2020 12:00:00 AM [<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄‣[<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄]‣⁄]
+LOG_TERM<10/31/2020 12:38:05 AM
+
+LOG_INIT<10/31/2020 12:38:13 AM
+dec.Schedule.Get(title).ToString() : Subtitle 10/28/2020 12:00:00 AM [<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄]
+LOG_TERM<10/31/2020 12:38:13 AM
+
+LOG_INIT<10/31/2020 2:36:30 AM
+dec.Schedule.Get(title).ToString() : Subtitle 10/28/2020 12:00:00 AM [<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄]
+LOG_TERM<10/31/2020 2:36:31 AM
+
+LOG_INIT<10/31/2020 2:44:59 AM
+dec.Schedule.Get(title).ToString() : Subtitle 10/28/2020 12:00:00 AM [<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄]
+LOG_TERM<10/31/2020 2:44:59 AM
+
+LOG_INIT<10/31/2020 2:45:26 AM
+dec.Schedule.Get(title).ToString() : Subtitle 10/28/2020 12:00:00 AM [<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄]
+LOG_TERM<10/31/2020 2:45:26 AM
+
+LOG_INIT<10/31/2020 3:21:39 AM
+dec.Schedule.Get(title).ToString() : Subtitle 10/28/2020 12:00:00 AM [<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄]
+LOG_TERM<10/31/2020 3:21:39 AM
+
+LOG_INIT<10/31/2020 3:22:34 AM
+dec.Schedule.Get(title).ToString() : Subtitle 10/28/2020 12:00:00 AM [<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄]
+LOG_TERM<10/31/2020 3:22:34 AM
+
+LOG_INIT<10/31/2020 3:22:54 AM
+dec.Schedule.Get(title).ToString() : Subtitle 10/28/2020 12:00:00 AM [<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄‣[<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄]‣⁄]
+LOG_TERM<10/31/2020 3:22:54 AM
+
+LOG_INIT<11/1/2020 11:40:39 AM
+dec.Schedule.Get(title).ToString() : Subtitle 10/28/2020 12:00:00 AM [<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄‣[<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄]‣⁄]
+LOG_TERM<11/1/2020 11:40:39 AM
+
+LOG_INIT<11/1/2020 11:41:09 AM
+dec.Schedule.Get(title).ToString() : Subtitle 10/28/2020 12:00:00 AM [<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄‣[<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄]‣⁄]
+LOG_TERM<11/1/2020 11:41:10 AM
+
+
+LOG_INIT<11/1/2020 6:39:12 PM
+dec.Schedule.Get(title).ToString() : y 10/20/2020 12:00:00 AM [<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄‣[<>⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄⁄]‣⁄]
+LOG_TERM<11/1/2020 6:39:12 PM
+
+LOG_INIT<11/1/2020 6:41:56 PM
+dec.Schedule.Get(title).ToString() : y 10/20/2020 12:00:00 AM x<a<<
+LOG_TERM<11/1/2020 6:41:56 PM
+
+LOG_INIT<11/1/2020 6:43:18 PM
+dec.Schedule.Get(title).ToString() : Title2 11/1/2020 12:00:00 AM This<is<the<notes<section<
+LOG_TERM<11/1/2020 6:43:18 PM
+
+LOG_INIT<11/1/2020 7:25:59 PM
+dec.Schedule.Get(title).ToString() : Title2 11/1/2020 12:00:00 AM This is the notes section
+LOG_TERM<11/1/2020 7:25:59 PM
+
+LOG_INIT<11/1/2020 7:45:15 PM
+dec.Schedule.Get(title).ToString() : Title2 11/1/2020 12:00:00 AM This is the notes section
+LOG_TERM<11/1/2020 7:45:15 PM
+
+LOG_INIT<11/3/2020 2:00:41 AM
+
+LOG_INIT<11/3/2020 2:00:57 AM
+10/31/2020 12:00:00 AM
+LOG_TERM<11/3/2020 2:00:57 AM
+
+LOG_INIT<11/3/2020 2:01:15 AM
+10/31/2020 12:00:00 AM
+LOG_TERM<11/3/2020 2:01:15 AM
+
+LOG_INIT<11/3/2020 2:03:40 AM
+
+LOG_INIT<11/3/2020 2:03:55 AM
+
+LOG_INIT<11/3/2020 2:04:30 AM
+
+LOG_INIT<11/3/2020 2:04:43 AM
+10/31/2020 10:00:00 AM
+LOG_TERM<11/3/2020 2:04:43 AM
+
+LOG_INIT<11/3/2020 2:04:48 AM
+
+LOG_INIT<11/3/2020 2:05:00 AM
+10/31/2020 10:00:00 AM
+LOG_TERM<11/3/2020 2:05:00 AM
+
+LOG_INIT<11/3/2020 2:05:24 AM
+10/31/2020 7:00:00 PM
+LOG_TERM<11/3/2020 2:05:24 AM
+
+LOG_INIT<11/3/2020 2:06:13 AM
+10/31/2020 7:00:00 PM
+LOG_TERM<11/3/2020 2:06:13 AM
+
+LOG_INIT<11/3/2020 2:06:49 AM
+10/31/2020 7:00:00 PM
+LOG_TERM<11/3/2020 2:06:49 AM
+
+LOG_INIT<11/3/2020 2:07:10 AM
+10/31/2020 7:00:00 PM
+LOG_TERM<11/3/2020 2:07:10 AM
+
+LOG_INIT<11/4/2020 1:50:57 AM
+
+LOG_INIT<11/4/2020 1:56:11 AM
+
+LOG_INIT<11/4/2020 1:57:54 AM
+
+LOG_INIT<11/4/2020 1:58:43 AM
+
+LOG_INIT<11/4/2020 1:59:28 AM
+
+LOG_INIT<11/4/2020 2:00:10 AM
+
+LOG_INIT<11/4/2020 2:01:48 AM
+
+LOG_TERM<11/4/2020 2:18:36 AM
+
+LOG_INIT<11/4/2020 9:18:14 AM
+
+LOG_INIT<11/4/2020 9:18:53 AM
+
+LOG_INIT<11/4/2020 9:19:02 AM
+
+LOG_INIT<11/4/2020 9:19:32 AM
+
+LOG_INIT<11/4/2020 9:19:37 AM
+
+LOG_INIT<11/4/2020 9:19:56 AM
+
+LOG_INIT<11/4/2020 9:20:49 AM
+
+LOG_INIT<11/6/2020 4:37:30 PM
+
+LOG_INIT<11/6/2020 4:41:21 PM
+
+LOG_INIT<11/6/2020 9:43:08 PM

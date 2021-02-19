@@ -1,159 +1,361 @@
 ﻿using System;
 using System.IO;
-
 namespace DBoard
 {
-    class DecBoard
+
+    class DBoard
     {
-        DecTree<Event> Schedule;
-
-
-        //Constructor empty. AddEvent functionality moved to funtion "AddEvent."
-        public DecBoard()
+        Storage events = new Storage();
+        public string GiveInstructions()
         {
-            Schedule = new DecTree<Event>();
+            return null;
         }
-
-        //FIXME: rename AddEvent, create empty constructor, check if index is already filled (throw exception if so), document changes, erase comment
 
         /*
-        void return type because method does not modify inputs.
-        There should already be variables for this stuff.
+            prints the parametrized message, then allows multi-line input
+            (ENTER key). Submit input with (ALT+ENTER).
         */
-        public void AddEvent(string Index, string Title, string Date, String Notes)
+        public string prompt(string message)
         {
-            try
-            {
-                Schedule.Get(Index);
-                //this is where the NullReferenceException should be thrown
+            Console.Write($"{message}:");
+            DecString retString = new DecString();
+            ConsoleKeyInfo nextKey;
+            bool ctrlEnter = false;
 
-                //since it wasn't thrown, we need to throw the exception. The index should be free.
-                throw new Exception("Duplicate Index. Undefined behavior.");
-            }
-            catch (NullReferenceException e)
+            while (!ctrlEnter)
             {
-            }
-            Schedule.Add(Index, new Event(Title, Date, Notes));
-        }
-        public void PrintDecTree(int[] indices, DecTree<object> subject)
-        {
-            if (indices.Length == 0)
-            {
-                return;
-            }
-            try
-            {
-                foreach (int index in indices)
+                nextKey = Console.ReadKey();
+                if (nextKey.Modifiers == ConsoleModifiers.Shift)
                 {
-                    Console.Write(subject.Get(indices[index]));
-                }
-            }
-            catch (NullReferenceException e)
-            {
-                Console.Write("index subject disagreement. Something was wrong with the DecTree's Ordering.");
-                e.Equals(e);
-            }
-        }
-
-        class Event
-        {
-            public DateTime Date;
-            public String Name;
-            DecTree<DecString> Note;
-            long NoteSize = 0;
-#nullable enable
-            public Event(String Title, String Date, String Notes)
-            {
-                char TERMCHAR = '<';
-                this.Date = DateTime.Parse(Date);
-                this.Name = Title;
-                Note = new DecTree<DecString>();
-                if (!(Notes == null))
-                {
-                    String[] noteArray = Notes.Split();
-                    bool notDone = true;
-                    //Yes. Used in If statement a few lines down. Ignore.
-                    int noteArrayLength = noteArray.Length;
-
-                    int noteArrayIndex = 0;
-                    for (noteArrayIndex = 0; noteArrayIndex < noteArrayLength; noteArrayIndex++)
+                    if (nextKey.Key == ConsoleKey.Enter)
                     {
-                        DecString subNote = new DecString();
-                        if (noteArrayIndex == noteArrayLength)
+                        Console.WriteLine();
+                        break;
+                    }
+                }
+                char inputCharacter = nextKey.KeyChar;
+                if (inputCharacter != DecString.EndOfLine && inputCharacter != '\0')
+                {   //character used in processing
+                    if (nextKey.KeyChar == '\r')
+                    {                                          //represents ENTER as Newline instead of carriage return.
+                        inputCharacter = '\n';
+                        Console.WriteLine();
+                    }
+                    if (nextKey.Key == ConsoleKey.Backspace)
+                    {      //implements backspace functionality, except after a newline.
+                        retString.RmChar();
+                        Console.Write(" \b");
+                        continue;
+                    }
+                    retString.AddChar(inputCharacter);
+                }
+
+            }
+            return retString.ToString();
+        }
+
+        public string Run()
+        {
+            Console.Write("operation (add, get, rm, save, load, list, delete, clear):");
+            string uInput = Console.ReadLine().ToLower();
+            if (uInput == "add")
+            {
+                string[] eventParams = new string[3];
+                bool successfulDate = false;
+
+                Console.Write("title:");
+                eventParams[0] = Console.ReadLine();
+                while (!successfulDate)
+                {
+                    try
+                    {
+                        Console.Write("date:");
+                        eventParams[1] = Console.ReadLine();
+                        if (eventParams[1] == "")
                         {
-                            notDone = false;
-                            break;
+                            eventParams[1] = DateTime.Now.ToString();
                         }
-                        //Debug
-                        //okay, what am I trying to say?
-                        //get the token we're on, check if its last char is ?
-                        //zero length case?
-                        //left for documentation
-                        if (noteArray[noteArrayIndex].Length == 0)
+                        DateTime.Parse(eventParams[1]);
+                        successfulDate = true;
+                    }
+                    catch (FormatException)
+                    {
+                        string cancelResponse = prompt("Invalid date. Format should be \"(M)M/(D)D/YYYY\". Cancel? (Y/n)");
+                        if (cancelResponse == "Y")
                         {
-                            continue;
-                        }
-                        else if (noteArray[noteArrayIndex][noteArray[noteArrayIndex].Length - 1] == TERMCHAR)
-                        {
-                            Note.Add(subNote);
-                        }
-                        else
-                        {
-                            subNote.AddString($" {noteArray[noteArrayIndex]}");
-                            //change the formatting at your happiest hour. The space is
-                            //at the beginning so that we have words between our strings.
+                            return null;
                         }
                     }
                 }
+
+                eventParams[2] = prompt("note");
+
+                Event newEvent = new Event(eventParams[0], DecTime.Parse(eventParams[1]), eventParams[2]);
+
+                while (events.GetEvent(eventParams[0]) != null)
+                {
+                    string removeOrRename = prompt("Duplicate element. (remove) or (rename)?").ToLower();
+                    while (removeOrRename != "remove" && removeOrRename != "rename")
+                    {
+                        removeOrRename = prompt("Invalid input. (remove) or (rename)").ToLower();
+                    }
+                    if (removeOrRename == "rename")
+                    {
+                        eventParams[0] = prompt("new name");
+                    }
+                    else
+                    {//only other option is remove
+                        events.Rm(eventParams[0]);
+                    }
+                }
+                events.AddEvent(eventParams[0], newEvent);
+                return events.GetEvent(eventParams[0]).ToString() != null ? "add succeeded" : "add failed";
             }
-#nullable disable
-        }
-        public static void Main(string[] args)
-        {
-            Logger logger = new Logger();
-
-            string title = args[0];
-            string date = args[1];
-            string subtitle = args[2];
-
-            DecString notes = new DecString();
-
-            for (int i = 3; i < args.Length; i++)
+            else if (uInput == "rm")
             {
-                //doesn't run if no arguments. That's checked already.
-                //this loop body adds the next string in the args array. That's it.
-                notes.AddString(args[i]);
-                notes.AddChar(' ');
+                string alias = prompt("Which event?");
+                return events.Rm(alias) ? "rm succeeded" : "rm failed";
             }
-            //lowkey a neural net, but these are just a rudimentary parsing of args elements.
-
-            DecBoard dec = new DecBoard();
-            dec.AddEvent(title, subtitle, date, notes.ToString());
-
-            logger.Record($"dec.Schedule.Get(title).Date.ToString() : {dec.Schedule.Get(title).Date.ToString()}");
-
-            logger.Close();
+            else if (uInput == "get")
+            {
+                string alias = prompt("Which event?");
+                try
+                {
+                    return events.GetEvent(alias).ToString().Replace('\0', '\n');
+                }
+                catch (NullReferenceException)
+                {
+                    return "get failed";
+                }
+            }
+            else if (uInput == "quit")
+            {
+                return uInput;
+            }
+            else if (uInput == "save")
+            {
+                string saveName = prompt("save name or (cancel)");
+                if (saveName == "cancel")
+                    return "canceled save";
+                while (System.IO.File.Exists(saveName))
+                {
+                    if (prompt("overwrite (Y/n)") == "Y")
+                    {
+                        events.Export(saveName);
+                        return "saved";
+                    }
+                    else
+                    {
+                        return "save failed.";
+                    }
+                }
+                events.Export(saveName);
+                return "saved";
+            }
+            else if (uInput == "load")
+            {
+                System.Collections.Generic.IEnumerable<string> filesInDirectory = System.IO.Directory.EnumerateFiles(".");
+                foreach (string file in filesInDirectory)
+                {
+                    if (file.Contains(".a.dec"))
+                        Console.WriteLine(file + "\b\b\b\b\b\b      ");
+                }
+                Storage loadAttempt;
+                try
+                {
+                    Console.WriteLine("DBoard name");
+                    loadAttempt = Storage.Import(Console.ReadLine());
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    return "load failed";
+                }
+                events = loadAttempt;
+                return "load succeeded";
+            }
+            else if (uInput == "list")
+            {
+                long length = events.addresses.Length();
+                for (long i = 0; i < length; i++)
+                {
+                    Console.WriteLine($"{events.addresses.Get(i)}\t\t\t{events.dates.Get(i)}");
+                }
+                return "listed";
+            }
+            else if (uInput == "delete")
+            {
+                System.Collections.Generic.IEnumerable<string> filesInDirectory = System.IO.Directory.EnumerateFiles(".");
+                foreach (string file in filesInDirectory)
+                {
+                    if (file.Contains(".a.dec"))
+                        Console.WriteLine(file + "\b\b\b\b\b\b      ");
+                }
+                Console.WriteLine("DBoard name");
+                string DBoardName = Console.ReadLine();
+                if (File.Exists($"{DBoardName}.a.dec") && File.Exists($"{DBoardName}.d.dec") && File.Exists($"{DBoardName}.e.dec"))
+                {
+                    File.Delete($"{DBoardName}.a.dec");
+                    File.Delete($"{DBoardName}.d.dec");
+                    File.Delete($"{DBoardName}.e.dec");
+                    return "deleted";
+                }
+                return "not deleted. At least one .dec file not found.";
+            }
+            else if (uInput == "clear")
+            {
+                Console.Clear();
+                return "clear";
+            }
+            else
+            {
+                return null;
+            }
         }
     }
-    class Logger
+
+    class Event : ConvertibleObject
     {
-        StreamWriter logfile_StreamWriter;
-        public Logger()
+        public DecTree<object> fields = new DecTree<object>();
+
+        public Event(string title, DecTime date, string notes)
         {
-            System.IO.Directory.CreateDirectory("./logs");
-            logfile_StreamWriter = new StreamWriter("./logs/log.txt", true);
-            logfile_StreamWriter.Write($"\nLOG_INIT<{System.DateTime.Now}\n");
-            logfile_StreamWriter.Flush();
+            fields.Add("title", title);
+            fields.Add("date", date);
+            fields.Add("notes", notes);
         }
 
-        public void Record(string literal){
-            logfile_StreamWriter.Write(literal);
+        public override string ToString()
+        {
+            DecString retString = new DecString();
+            retString.AddString((string)fields.Get("title"));
+            retString.AddChar('\0');
+
+            retString.AddString(((DecTime)fields.Get("date")).ToString());
+            retString.AddChar('\0');
+
+            retString.AddString(((string)fields.Get("notes")).Replace('\n', '\0'));     //No Standardized DecTree newline character.
+            return retString.ToString();
         }
 
-        public void Close(){
-            logfile_StreamWriter.Write($"\nLOG_TERM<{System.DateTime.Now}\n");
-            logfile_StreamWriter.Flush();
-            logfile_StreamWriter.Close();
+        public override Event FromString(string input)
+        {
+            if (input == "")
+            {
+                return null;
+            }
+
+            DecString inputDS = new DecString(input);
+            DecString separatedString_ElementComponent = new DecString();
+            string[] separatedString = new string[3];       //3 fields: title, datetime, note
+            char currChar;
+            int currChar_Index = 0;
+
+            for (int i = 0; i < 2; currChar_Index++)
+            {
+                if ((currChar = inputDS.GetChar(currChar_Index)) != '\0')
+                    separatedString_ElementComponent.AddChar(currChar);
+                else
+                {
+                    separatedString[i] = separatedString_ElementComponent.ToString();
+                    separatedString_ElementComponent.Clear();
+                    i++;
+                }
+            }
+
+            while ((currChar = inputDS.GetChar(currChar_Index++)) != DecString.EndOfLine)
+                separatedString_ElementComponent.AddChar(currChar);
+
+            separatedString[2] = separatedString_ElementComponent.ToString();
+
+            return new Event(separatedString[0], DecTime.Parse(separatedString[1]), separatedString[2].Replace('\0', '\n'));   //No Standardized DecTree newline character.
+        }
+    }
+
+
+    class Storage
+    {
+        public DecTree<string> addresses = new DecTree<string>();
+        public DecTree<object> dates = new DecTree<object>();
+        public long addresses_counter = 0;
+        public DecTree<object> eventHolder = new DecTree<object>();
+
+        public void AddEvent(string address, Event element)
+        {
+            addresses.Add(addresses_counter, address);
+            dates.Add(addresses_counter, (DecTime)element.fields.Get("date"));
+            eventHolder.Add(address, element);
+            addresses_counter++;
+        }
+
+        public Event GetEvent(string address)
+        {
+            try
+            {
+                return (Event)eventHolder.Get(address);
+            }
+            catch (NullReferenceException)
+            {
+                return null;
+            }
+        }
+
+        public bool Rm(string address)
+        {
+            int addressIndex = -1;
+            Defragment_Addresses();
+            for (int i = 0; i < addresses_counter; i++)
+            {
+                if (addresses.Get(i) == address)
+                {
+                    addressIndex = i;
+                    break;
+                }
+            }
+            if (addressIndex < 0)
+                return false;
+            else if (addresses.Rm(addressIndex) && dates.Rm(addressIndex--) && eventHolder.Rm(address))
+                return true;
+            else
+                throw new NullReferenceException();     //If this is thrown, something is just messed up. This should never be thrown.
+        }
+
+        public void Export(string path)
+        {
+            addresses.Export($"{path}.a.dec");
+            dates.Export($"{path}.d.dec");
+            eventHolder.Export($"{path}.e.dec");
+        }
+
+        public static Storage Import(string path)
+        {
+            Storage retStorage = new Storage();
+            retStorage.addresses = DecTree<string>.Import($"{path}.a.dec");
+            retStorage.dates = DecTree<string>.Import($"{path}.d.dec", new DecTime(DateTime.Now));
+            retStorage.addresses_counter = retStorage.addresses.Length();
+            retStorage.eventHolder = DecTree<object>.Import($"{path}.e.dec", new Event(null, DecTime.Convert(DateTime.Now), null));
+            return retStorage;
+        }
+
+        public void Defragment_Addresses()
+        {
+            int addressesDefragmented = 0; //number of addresses defragmented
+            for (int i = 0; addressesDefragmented < addresses_counter; i++)
+            {
+                try
+                {
+                    string address;
+                    if ((address = addresses.Get(i)) != null)
+                    {
+                        addresses.Rm(addressesDefragmented);
+                        dates.Rm(addressesDefragmented);
+                        addresses.Add(addressesDefragmented, address);
+                        dates.Add(addressesDefragmented, address);
+                        addressesDefragmented++;
+                    }
+                }
+                catch (NullReferenceException) { continue; }
+            }
         }
     }
 }
